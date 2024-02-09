@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("onBoarding") var isOnBoardingViewActive: Bool = true
+    
+    
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            if isOnBoardingViewActive{
+                OnBoardingView()
+            }
+            else{
+                HomeView()
+            }
         }
         .padding()
     }
