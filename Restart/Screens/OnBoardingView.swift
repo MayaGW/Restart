@@ -15,8 +15,8 @@ struct OnBoardingView: View {
     
     var body: some View {
         ZStack {
-            Color(.accent)
-                .ignoresSafeArea(.all,edges: .all)
+            Color.accent
+                .ignoresSafeArea(.all)
             VStack(spacing: 20) {
           //MARK: - HEADER
                 Spacer()
@@ -38,15 +38,7 @@ struct OnBoardingView: View {
                 //END OF HEADER
           //MARK: - CENTER
                 ZStack{
-                    ZStack{
-                      Circle()
-                            .stroke(.white.opacity(0.2),lineWidth: 40)
-                            .frame(width: 260, height: 260, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        Circle()
-                            .stroke(.white.opacity(0.2),lineWidth: 80)
-                            .frame(width: 260, height: 260, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                      
-                    }//Zstack
+                    CircleGroupView(shapeColor: .white,shapeOpacity: 0.2)
                     Image(.character1)
                         .resizable()
                         .scaledToFit()
@@ -103,6 +95,7 @@ struct OnBoardingView: View {
                 .padding()
             }//VStack
         }// Ztack
+        .ignoresSafeArea(.all)
     }
 }
 
