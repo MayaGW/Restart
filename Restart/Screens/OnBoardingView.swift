@@ -10,8 +10,8 @@ import SwiftUI
 struct OnBoardingView: View {
     //MARK: _ PROBERTIES
    @AppStorage("onBoarding") var isOnBoardingViewActive: Bool = true
-
-    
+    @State private var buttonWidth: Double = UIScreen.main.bounds.width - 80
+    @State private var buttonOffset: CGFloat = 0
     
     var body: some View {
         ZStack {
@@ -64,7 +64,7 @@ struct OnBoardingView: View {
                     HStack{
                         Capsule()
                             .fill(.colorRed)
-                            .frame(width: 80)
+                            .frame(width: buttonOffset + 80)
                         Spacer()
                     }
                     //4.CIRRCLE (DRAGGABLE)
@@ -82,20 +82,42 @@ struct OnBoardingView: View {
                         }//Zstack
                         .foregroundColor(.white)
                     .frame(width: 80, height: 80, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .onTapGesture()
-                        {
-                            isOnBoardingViewActive = false
-                        
-                    }
+                    .offset(x:buttonOffset)
+                    
+                 
+                    .gesture(
+                    DragGesture()
+                        .onChanged({ gesture in
+                            if gesture.translation.width > 0 && buttonOffset <= buttonWidth - 80{
+                                buttonOffset = gesture.translation.width
+                            }
+                        })
+                        .onEnded({ _ in
+                            if buttonOffset > buttonWidth / 2{
+                                buttonOffset = buttonWidth - 80
+                                isOnBoardingViewActive = false
+                                print("hello")
+                            }else{
+                                buttonOffset = 0}
+                        })
+                    )
+                        // gesture
+//                    .onTapGesture()
+//                        {
+//                            isOnBoardingViewActive = false
+//                            print("hi")
+//                        
+//                    }
                         Spacer()
                     }
                     
                 }//Zstack FOOTER
+               // .frame(width:buttonWidth, height: 80,alignment: .center)
                 .frame(height: 80,alignment: .center)
                 .padding()
             }//VStack
         }// Ztack
-        .ignoresSafeArea(.all)
+         
     }
 }
 
